@@ -72,10 +72,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         })
     }
 
-    fun test(list : List<NoteBean>){
-        var temp = list;
-    }
-
     fun initListener(){
         iv_switch_view?.setOnClickListener(this)
         tv_order_by?.setOnClickListener(this)
@@ -99,7 +95,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
 
             }
             R.id.rl_delete -> {
-                showDialog()
+                showDialog(adapter!!.deleteList)
             }
             R.id.ll_select_all -> {
                 setSelectAllState()
@@ -114,7 +110,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
 
     fun deleteNotes(notes : ArrayList<NoteBean>){
         viewModel.deleteNotes(ArrayList(notes))
-        setEditState()
     }
 
     fun setEditState(){
@@ -153,7 +148,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         adapter!!.deleteList.clear()
     }
 
-    private fun showDialog() {
+    public fun showDialog(list : ArrayList<NoteBean>) {
         val builder = AlertDialog.Builder(this);
         builder.setTitle("提示")
         builder.setMessage("确定要删除吗？")
@@ -161,7 +156,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         val dialogClickListener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    deleteNotes(adapter!!.deleteList)
+                    deleteNotes(list)
                     Log.e("TAG", "click yes")
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
