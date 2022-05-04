@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.memoredum.MainActivity
 import com.example.memoredum.R
 import com.example.memoredum.WriteNoteActivity
 import com.example.memoredum.entity.NoteBean
@@ -20,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NoteAdapter(context: Context) : PagedListAdapter<NoteBean, NoteAdapter.NoteViewHolder>(NoteAdapter.diffCallback) {
+class NoteAdapter(context: MainActivity) : PagedListAdapter<NoteBean, NoteAdapter.NoteViewHolder>(NoteAdapter.diffCallback){
     var isEdit : Boolean = false
     var selectAll : Boolean = false
     var deleteList : ArrayList<NoteBean> = ArrayList()
@@ -47,6 +48,12 @@ class NoteAdapter(context: Context) : PagedListAdapter<NoteBean, NoteAdapter.Not
             intent.putExtra(WriteNoteActivity.EXTRA_TITLE,note?.title)
             intent.putExtra(WriteNoteActivity.EXTRA_CONTENT,note?.content)
             context.startActivity(intent)
+        }
+        holder.rl_item_view.setOnLongClickListener {
+            val list = ArrayList<NoteBean>()
+            list.add(note!!)
+            context.showDialog(list)
+            false
         }
         if (isEdit){
             holder.cb_check.visibility = View.VISIBLE
@@ -85,5 +92,7 @@ class NoteAdapter(context: Context) : PagedListAdapter<NoteBean, NoteAdapter.Not
         val cb_check: CheckBox = itemView.findViewById(R.id.cb_check)
         val ll_item_View: LinearLayout = itemView.findViewById(R.id.ll_item_view)
     }
+
 }
+
 

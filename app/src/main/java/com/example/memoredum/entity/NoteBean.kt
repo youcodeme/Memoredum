@@ -14,4 +14,10 @@ class NoteBean() {
     var content: String? = null
     var add_time: String? = null
     var update_time: String? = null
+    var excute_time: String? = null
+    var year: String? = null
+    var month: String? = null
+    var day: String? = null
+    var hour: String? = null
+    var min: String? = null
 }

@@ -1,18 +1,25 @@
 package com.example.memoredum.vm
 
+import android.app.AlarmManager
 import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.paging.*
 import com.example.memoredum.db.NoteDb
 import com.example.memoredum.entity.NoteBean
 import com.example.memoredum.ioThread
+import com.example.memoredum.receiver.MyBroadcast
+import java.text.SimpleDateFormat
 
 
 class NoteViewModel(app: Application) : AndroidViewModel(app) {
+    val context = app
     val dao = NoteDb.get(app).noteDao()
 
-    var allNotes = dao.getAllNotes().toLiveData(Config(
+    var allNotes = dao.getAllNotesByDataSource().toLiveData(Config(
             pageSize = 30,
             enablePlaceholders = true,
             maxSize = 200))
@@ -55,11 +62,12 @@ class NoteViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun initDataSource(){
-        allNotes = dao.getAllNotes().toLiveData(Config(
+        allNotes = dao.getAllNotesByDataSource().toLiveData(Config(
             pageSize = 30,
             enablePlaceholders = true,
             maxSize = 200))
     }
+
 
 }
 

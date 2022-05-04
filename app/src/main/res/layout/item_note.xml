@@ -7,8 +7,8 @@
     android:background="@color/color_white"
     >
 
-    <LinearLayout
-        android:id="@+id/ll_item_view"
+    <RelativeLayout
+        android:id="@+id/rl_item_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -27,6 +27,7 @@
             android:button="@null"/>
 
         <LinearLayout
+            android:layout_toRightOf="@+id/cb_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -54,7 +55,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2020-06-26"
-                    android:textColor="@color/color_gray_bbb"
                     android:textSize="@dimen/b30" />
 
                 <TextView
@@ -77,6 +77,15 @@
                 android:background="@color/color_line" />
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_over_time"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_over_limit"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

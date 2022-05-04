@@ -49,5 +49,73 @@
             android:textSize="@dimen/b28" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_time_limit"
+        android:layout_margin="@dimen/b20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请输入执行时限，默认为10小时内"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/b20"
+        android:background="@drawable/frame_with_gray_background_r10_b0"
+        android:minHeight="@dimen/b200">
+
+        <EditText
+            android:id="@+id/edit_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入年"
+            android:padding="@dimen/b20"
+            android:text=""
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/b28" />
+        <EditText
+            android:id="@+id/edit_month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入月份"
+            android:padding="@dimen/b20"
+            android:text=""
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/b28" />
+        <EditText
+            android:id="@+id/edit_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入日期"
+            android:padding="@dimen/b20"
+            android:text=""
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/b28" />
+        <EditText
+            android:id="@+id/edit_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入时"
+            android:padding="@dimen/b20"
+            android:text=""
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/b28" />
+        <EditText
+            android:id="@+id/edit_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入分"
+            android:padding="@dimen/b20"
+            android:text=""
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/b28" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

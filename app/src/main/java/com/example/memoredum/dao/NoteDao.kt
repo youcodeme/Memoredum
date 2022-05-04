@@ -22,10 +22,11 @@ interface NoteDao {
     fun getNotesByTitle(title:String):List<NoteBean>
 
     @Query("select * from table_note")
-    fun getAllNotes(): DataSource.Factory<Int, NoteBean>
+    fun getAllNotesByDataSource(): DataSource.Factory<Int, NoteBean>
 
     @Query("select * from table_note where title like '%'||:content||'%' or content like '%'||:content||'%'")
     fun searchNotes(content: String): DataSource.Factory<Int, NoteBean>
 
-
+    @Query("select * from table_note")
+    fun getAllNotes(): List<NoteBean>
 }

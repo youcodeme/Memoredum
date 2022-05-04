@@ -19,6 +19,14 @@
         <activity android:name=".WriteNoteActivity"
             android:launchMode="standard">
         </activity>
+
+        <receiver android:name=".receiver.MyBroadcast"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="studyproject.tcl.com.RECEIVER"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

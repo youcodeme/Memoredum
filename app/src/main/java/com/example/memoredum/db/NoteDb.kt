@@ -26,7 +26,7 @@ import com.example.memoredum.entity.NoteBean
  * Singleton database object. Note that for a real app, you should probably use a Dependency
  * Injection framework or Service Locator to create the singleton database.
  */
-@Database(entities = arrayOf(NoteBean::class), version = 1)
+@Database(entities = arrayOf(NoteBean::class), version = 3)
 abstract class NoteDb : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
@@ -42,6 +42,7 @@ abstract class NoteDb : RoomDatabase() {
 
                             }
                         })
+                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()
             }

@@ -85,6 +85,7 @@
             android:src="@mipmap/icon_edit" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_order_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,6 +96,7 @@
             android:textSize="@dimen/b30" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv_down"
             android:layout_width="@dimen/b30"
             android:layout_height="@dimen/b30"
