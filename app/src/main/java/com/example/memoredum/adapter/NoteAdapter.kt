@@ -70,7 +70,7 @@ class NoteAdapter(context: MainActivity) : PagedListAdapter<NoteBean, NoteAdapte
         if (Date() > SimpleDateFormat("yyyy-MM-dd HH:mm").parse(note?.excute_time)){
             holder.iv_over_time.visibility = View.VISIBLE
         }else{
-            holder.iv_over_time.visibility = View.VISIBLE
+            holder.iv_over_time.visibility = View.GONE
         }
         if (!TextUtils.isEmpty(note?.excute_time)) {
             var time = note?.excute_time?.split(" ")

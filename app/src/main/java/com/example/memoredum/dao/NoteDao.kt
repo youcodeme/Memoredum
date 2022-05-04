@@ -21,7 +21,7 @@ interface NoteDao {
     @Query("select * from table_note where title like :title")
     fun getNotesByTitle(title:String):List<NoteBean>
 
-    @Query("select * from table_note")
+    @Query("select * from table_note order by excute_time asc ")
     fun getAllNotesByDataSource(): DataSource.Factory<Int, NoteBean>
 
     @Query("select * from table_note where title like '%'||:content||'%' or content like '%'||:content||'%'")
