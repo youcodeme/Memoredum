@@ -5,8 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/ly_toolbar"
+        layout="@layout/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -63,7 +70,7 @@
                 android:layout_centerVertical="true"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:src="@mipmap/ic_checked_gray"/>
+                android:src="@drawable/icon_uncheck"/>
 
             <TextView
                 android:layout_gravity="center_vertical"

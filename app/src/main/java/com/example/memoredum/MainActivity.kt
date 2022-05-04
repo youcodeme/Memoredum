@@ -1,23 +1,20 @@
 package com.example.memoredum
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
+import android.view.WindowManager
 import android.widget.*
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.paging.Config
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.memoredum.WriteNoteActivity.Companion.EXTRA_ADD
 import com.example.memoredum.WriteNoteActivity.Companion.EXTRA_TYPE
 import com.example.memoredum.adapter.NoteAdapter
@@ -25,7 +22,7 @@ import com.example.memoredum.entity.NoteBean
 import com.example.memoredum.impl.TextWatcherImpl
 import com.example.memoredum.vm.NoteViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
     val context = this
 
     private var adapter: NoteAdapter? = null
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,15 +42,15 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
     override fun onStart() {
         super.onStart()
         initListener()
-
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         adapter = NoteAdapter(this)//继承PagedListAdapter的类对象
         recyclerView?.adapter = adapter //为RecyclerView添加适配器
         initDataSource()
         edit_search_context.addTextChangedListener(object : TextWatcherImpl() {
             override fun afterTextChanged(s: Editable?) {
-                if (s?.length == 0){
+                if (s?.length == 0) {
                     initDataSource()
-                }else{
+                } else {
                     viewModel.getNoteByContentOrTitle(s.toString())
                     viewModel.allNotes.observe(context, Observer {
                         adapter!!.submitList(it)
@@ -62,6 +60,9 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
 
             }
         })
+        iv_left.visibility = View.GONE
+        iv_right.visibility = View.GONE
+        tv_title.text = "备忘录"
     }
 
     fun initDataSource(){
@@ -82,16 +83,16 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
 
 
     override fun onClick(v: View?) {
-        Log.d("onClick","onClick");
+        Log.d("onClick", "onClick");
         when (v?.id) {
             R.id.iv_switch_view -> {
                 setEditState()
-                Log.d("onClick","iv_switch_view")
+                Log.d("onClick", "iv_switch_view")
 //                viewModel.insertNote("标题","内容",
 //                    SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date()),SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date()))
             }
             R.id.tv_order_by -> {
-                Log.d("onClick","tv_order_by");
+                Log.d("onClick", "tv_order_by");
 
             }
             R.id.rl_delete -> {
@@ -101,14 +102,14 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
                 setSelectAllState()
             }
             R.id.iv_add_note -> {
-                val intent = Intent(this,WriteNoteActivity::class.java)
-                intent.putExtra(EXTRA_TYPE,EXTRA_ADD)
+                val intent = Intent(this, WriteNoteActivity::class.java)
+                intent.putExtra(EXTRA_TYPE, EXTRA_ADD)
                 startActivity(intent)
             }
         }
     }
 
-    fun deleteNotes(notes : ArrayList<NoteBean>){
+    fun deleteNotes(notes: ArrayList<NoteBean>){
         viewModel.deleteNotes(ArrayList(notes))
     }
 
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
             ll_bottom?.visibility = View.VISIBLE
 
             adapter?.selectAll = false
-            iv_select_all?.setImageResource(R.mipmap.ic_checked_gray)
+            iv_select_all?.setImageResource(R.drawable.icon_uncheck)
             clearDeleteList()
         }else{
             adapter?.isEdit = true
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
     fun setSelectAllState(){
         if (adapter?.selectAll!!){
             adapter?.selectAll = false
-            iv_select_all?.setImageResource(R.mipmap.ic_checked_gray)
+            iv_select_all?.setImageResource(R.drawable.icon_uncheck)
         }else{
             adapter?.selectAll = true
             iv_select_all?.setImageResource(R.drawable.icon_checked)
@@ -148,7 +149,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
         adapter!!.deleteList.clear()
     }
 
-    public fun showDialog(list : ArrayList<NoteBean>) {
+    public fun showDialog(list: ArrayList<NoteBean>) {
         val builder = AlertDialog.Builder(this);
         builder.setTitle("提示")
         builder.setMessage("确定要删除吗？")
