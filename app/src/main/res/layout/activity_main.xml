@@ -47,6 +47,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/b20">
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/iv_switch_view"
+            android:visibility="gone"
+            android:id="@+id/ll_select_all"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_select_all"
+                android:layout_centerVertical="true"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@mipmap/ic_checked_gray"/>
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全选"
+                android:textSize="14dp"
+                android:textColor="@color/color_godden_dark"
+                android:id="@+id/tv_select_all"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/iv_switch_view"
+            android:layout_width="@dimen/b50"
+            android:layout_height="@dimen/b50"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_edit" />
+
         <TextView
             android:id="@+id/tv_order_by"
             android:layout_width="wrap_content"
@@ -74,12 +111,15 @@
         android:background="@color/color_line" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@id/core_list_view_id"
+        app:layoutManager="LinearLayoutManager"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1" />
 
     <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/b80"
         android:gravity="center_vertical"
@@ -102,4 +142,30 @@
             android:layout_height="@dimen/b40"
             android:src="@mipmap/icon_write_note" />
     </LinearLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/icon_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/iv_delete"/>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="删除"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_delete"/>
+
+    </RelativeLayout>
+
 </LinearLayout>
