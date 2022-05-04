@@ -7,9 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +35,12 @@ class NoteAdapter(context: MainActivity) : PagedListAdapter<NoteBean, NoteAdapte
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val note = getItem(position)
         holder.tv_note_title.text = note?.title
         holder.tv_note_content.text = note?.content
-        holder.ll_item_View.setOnClickListener {
+        holder.rl_item_view.setOnClickListener {
             val intent = Intent(context, WriteNoteActivity::class.java)
             intent.putExtra(WriteNoteActivity.EXTRA_TYPE, WriteNoteActivity.EXTRA_UPDATE)
             intent.putExtra(WriteNoteActivity.EXTRA_ID,note?.id)
@@ -68,15 +67,20 @@ class NoteAdapter(context: MainActivity) : PagedListAdapter<NoteBean, NoteAdapte
                 deleteList.remove(note)
             }
         }
-        if (!TextUtils.isEmpty(note?.update_time)) {
-            var time = note?.update_time?.split(" ")
+        if (Date() > SimpleDateFormat("yyyy-MM-dd HH:mm").parse(note?.excute_time)){
+            holder.iv_over_time.visibility = View.VISIBLE
+        }else{
+            holder.iv_over_time.visibility = View.VISIBLE
+        }
+        if (!TextUtils.isEmpty(note?.excute_time)) {
+            var time = note?.excute_time?.split(" ")
             var date = Date()
             var simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
             var tvLastTime = holder.tv_note_last_time
             if (simpleDateFormat.format(date).equals(time!![0])) {
                 tvLastTime?.text = time[1]
             } else {
-                tvLastTime?.text = note?.update_time
+                tvLastTime?.text = note?.excute_time
             }
         }
     }
@@ -90,7 +94,8 @@ class NoteAdapter(context: MainActivity) : PagedListAdapter<NoteBean, NoteAdapte
         val tv_note_last_time: TextView = itemView.findViewById(R.id.tv_note_last_time)
         val tv_note_content: TextView = itemView.findViewById(R.id.tv_note_content)
         val cb_check: CheckBox = itemView.findViewById(R.id.cb_check)
-        val ll_item_View: LinearLayout = itemView.findViewById(R.id.ll_item_view)
+        val rl_item_view: RelativeLayout = itemView.findViewById(R.id.rl_item_view)
+        val iv_over_time: ImageView = itemView.findViewById(R.id.iv_over_time)
     }
 
 }
